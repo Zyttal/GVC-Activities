@@ -1,5 +1,5 @@
 import cv2
-import numpy as py
+import numpy as np
 import activity1
 
 if __name__ == "__main__":
@@ -24,47 +24,37 @@ if __name__ == "__main__":
     # Thresholding and the other steps are applied
     canny_edges = cv2.Canny(image=blur_img_gray, threshold1=100, threshold2=200)
 
-    dim = (1024, 768)
-    resized_img = cv2.resize(canny_edges, dim, interpolation = cv2.INTER_AREA)
-    cv2.imshow("Canny Edge Detection", resized_img)
+    canny_edges = activity1.resizeImage(canny_edges)
+    
+    cv2.imshow("Canny Edge Detection", canny_edges)
 
     cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
     '''
         Sobel Edge Detection is a popular edge detection method that is based on the concept of finding the gradient of the intensity of the image. It is simple, efficient, and widely used in image processing applications, including object recognition, image segmentation, and pattern recognition.
     '''
 
     # Repeat steps of grayscale and Gaussian blur then apply Sobel Algorithm from cv2
-    sobelx = cv2.Sobel(src=blur_img_gray, ddepth=cv2.CV_64F, dx=1, dy=0, ksize=5) 
-    sobely = cv2.Sobel(src=blur_img_gray, ddepth=cv2.CV_64F, dx=0, dy=1, ksize=5) 
-    sobelxy = cv2.Sobel(src=blur_img_gray, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=5)
+    sobelxy = cv2.Sobel(src=blur_img_gray, ddepth=cv2.CV_64F, dx=1, dy=0, ksize=5) 
 
-    sobelx = cv2.resize(sobelx, dim, interpolation = cv2.INTER_AREA)
-    sobely = cv2.resize(sobelx, dim, interpolation = cv2.INTER_AREA)
-    sobelxy = cv2.resize(sobelx, dim, interpolation = cv2.INTER_AREA)
-
-    cv2.imshow('Sobel X', sobelx)
-    cv2.waitKey(0)
-
-    cv2.imshow('Sobel Y', sobely)
-    cv2.waitKey(0)
+    sobelxy = activity1.resizeImage(sobelxy)
 
     cv2.imshow('Sobel X Y using Sobel() function', sobelxy)
-    cv2.waitKey(0)
 
+    cv2.waitKey(0)
     cv2.destroyAllWindows()
 
     # Display RGB of Image separately 
 
     (R, G, B) = cv2.split(img)
 
-    R = cv2.resize(R, dim, interpolation = cv2.INTER_AREA)
-    G = cv2.resize(G, dim, interpolation = cv2.INTER_AREA)
-    B = cv2.resize(B, dim, interpolation = cv2.INTER_AREA)
+    R = activity1.resizeImage(R)
+    G = activity1.resizeImage(G)
+    B = activity1.resizeImage(B)
     
-    cv2.imshow('Red Value of Image', R)
-    cv2.imshow('Blue Value of Image', B)
-    cv2.imshow('Green Value of Image', G)
-    cv2.waitKey(0)
+    images = np.concatenate((R,G,B), axis=1)
 
+    cv2.imshow('R G B (Left to Right) Channels', images)
+    cv2.waitKey(0)
     cv2.destroyAllWindows()
