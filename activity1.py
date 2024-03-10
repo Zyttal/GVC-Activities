@@ -1,10 +1,15 @@
 import cv2
 import numpy as np
+import random
 
 def printImageProperties(img):
     print(f"Shape of Image (Rows, Columns & Channels): {img.shape}")
     print(f"Total Number of Pixels: {img.size}")
-    print(f"Data type: {img.dtype}\n")
+    print(f"Data type: {img.dtype}")
+
+    color_value = img[300, 300] # x = 300, y = 300 for fixed pixel
+
+    print(f"Color Value of Image: {color_value}\n")
 
 if __name__ == "__main__":
 
@@ -22,7 +27,6 @@ if __name__ == "__main__":
     printImageProperties(img)
 
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
     # Convert to Grayscale with IMREAD_GRAYSCALE flag
 
@@ -40,7 +44,6 @@ if __name__ == "__main__":
     cv2.imwrite('bw_image.png', img_bw)
 
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
     # Read and show the created Black and white image
 
