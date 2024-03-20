@@ -5,6 +5,7 @@ import matplotlib
 matplotlib.use("QtAgg")
 import matplotlib.pyplot as plt
 import os
+from PIL import Image
 
 def printImageProperties(img):
     print(f"Shape of Image (Rows, Columns & Channels): {img.shape}")
@@ -266,6 +267,18 @@ def main():
                 axs[1, 1].imshow(edges_img, cmap='gray')
                 axs[1, 1].set_title('Edges Image')
                 axs[1, 1].axis('off')
+
+                height, width, channels = img.shape
+                size_img = os.path.getsize(image_used)
+                img_mode = Image.open(image_used)
+                img_mode = img_mode.mode
+                color_value = img[300, 300]
+
+                print(f"Filename: {image_used}")
+                print(f"Format: {img_mode}")
+                print(f"Width: {width}")
+                print(f"Height: {height}")
+                print(f"Value of pixel [300,300]: {color_value}")
 
                 plt.tight_layout()
                 plt.show()
